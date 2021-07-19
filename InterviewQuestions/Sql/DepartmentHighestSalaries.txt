@@ -1,0 +1,16 @@
+﻿SELECT 
+  d.name AS Department
+, e.name AS Employee
+, e.salary AS Salary
+FROM Employee e
+LEFT JOIN Department d
+	ON e.departmentId = d.departmentId
+WHERE e.salary = (
+                   SELECT MAX(salary)
+                   FROM Employee z
+                   WHERE z.departmentID = e.departmentId
+                  )
+GROUP BY 
+  d.name
+, e.name
+, e.salary
